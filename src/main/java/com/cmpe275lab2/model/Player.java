@@ -42,7 +42,7 @@ public class Player {
 	@Column(name = "description")
 	private String description;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "sponsorname")
 	@JsonIgnoreProperties("beneficiaries")
 	private Sponsor sponsor;
