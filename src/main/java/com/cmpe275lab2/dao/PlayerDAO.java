@@ -1,12 +1,8 @@
 package com.cmpe275lab2.dao;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
-=======
 import java.util.*;
->>>>>>> master
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -25,9 +21,8 @@ public class PlayerDAO {
 	@Autowired
 	SponsorRepository sponsorRepository;
 	
-<<<<<<< HEAD
-	public Player save(Player player, String name) {
 
+	public Player save(Player player, String name) {
 		boolean checkSponsor = sponsorRepository.existsByName(name);
 		List<Sponsor> sponsor;
 		if(checkSponsor) {
@@ -43,26 +38,6 @@ public class PlayerDAO {
 	public Player findPlayer(String id) {
 		Long playerid = Long.parseLong(id);
 		return playerRepository.findById(playerid).orElse(null);
-=======
-	public Player save(Player player, String sponsor) {
-		return playerRepository.save(player);
 	}
-	
-	public boolean emailExists(String email) {
-		return playerRepository.existsByEmail(email);
-	}
-	
-	public boolean sponsorExists(String sponsor) {
-		return sponsorRepository.existsByName(sponsor);
-	}
-	
-	public Sponsor getSponsor(String sponsor) {
-		System.out.println(sponsorRepository.findByName(sponsor).toString() + "...................");
-		Sponsor obj = null;
-		for(Sponsor sponsorObj: sponsorRepository.findByName(sponsor)) {
-			obj = sponsorObj;
-		}
-		return obj;
->>>>>>> master
-	}
+
 }

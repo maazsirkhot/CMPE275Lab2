@@ -13,15 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-<<<<<<< HEAD
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-=======
-import java.io.Serializable;
->>>>>>> master
 @Entity
 @Table(name="player")
 @EntityListeners(AuditingEntityListener.class)
@@ -30,7 +24,7 @@ public class Player {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(name = "id")
+	@Column(name = "player_id")
 	private Long playerId;
 	
 	@NotBlank
@@ -48,31 +42,18 @@ public class Player {
 	@Column(name = "description")
 	private String description;
 
-//	@Column(name = "sponsor")
-//	private String sponsor;
-	
-<<<<<<< HEAD
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sponsorname")
 	@JsonIgnoreProperties("beneficiaries")
 	private Sponsor sponsor;
-	
-	@Embedded 
-	private Address address;
-	
-=======
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "sponsor", referencedColumnName = "name")
-	private Sponsor sponsorObj;
 
 	@Embedded 
 	private Address address;
->>>>>>> master
+
+	
 	public Long getPlayerId() {
 		return playerId;
 	}
-	
 	public void setPlayerId(Long playerId) {
 		this.playerId = playerId;
 	}
@@ -100,28 +81,16 @@ public class Player {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-<<<<<<< HEAD
-	public Sponsor getSponsor() {		
-		return sponsor;
-=======
 	public Sponsor getSponsor() {
-		return sponsorObj;
->>>>>>> master
+		return sponsor;
+
 	}
 	public void setSponsor(Sponsor sponsor) {
-		this.sponsorObj = sponsor;
+		this.sponsor = sponsor;
 	}
-//	public String getSponsor() {
-//		return sponsor;
-//	}
-//	public void setSponsor(String sponsor) {
-//		this.sponsor = sponsor;
-//	}
-	
 	public Address getAddress() { 
 		return address; 
 	} 
-	
 	public void setAddress(Address address) { 
 		this.address = address; 
 	}

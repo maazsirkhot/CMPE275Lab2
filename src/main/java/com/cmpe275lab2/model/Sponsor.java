@@ -38,16 +38,11 @@ public class Sponsor {
 	
 	@Embedded
 	private Address address;
-	
-<<<<<<< HEAD
 
 	@JsonIgnoreProperties("sponsor")
 	@OneToMany(mappedBy="sponsor")
 	private List<Player> beneficiaries;	
-=======
-	@OneToMany(mappedBy = "sponsorObj")
-	private List<Player> players;
->>>>>>> master
+
 	
 	public List<Player> getBeneficiaries() {
 		return beneficiaries;
