@@ -40,7 +40,8 @@ public class Sponsor {
 	private Address address;
 
 	@JsonIgnoreProperties("sponsor")
-	@OneToMany(mappedBy="sponsor")
+	@OneToMany(mappedBy="sponsor", fetch = FetchType.EAGER)
+	
 	private List<Player> beneficiaries;	
 
 	
