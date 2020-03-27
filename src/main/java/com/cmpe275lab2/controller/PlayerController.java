@@ -31,34 +31,75 @@ public class PlayerController {
 	SponsorRepository sponsorRepository;
 	
 	@PostMapping
-	public Player createPlayer(@Valid @RequestParam(name = "firstname") String firstname,
-			@RequestParam(name = "lastname") String lastname,
-			@RequestParam(name = "email") String email,
-			@RequestParam(name = "description", required = false) String description,
-			@RequestParam(name = "street", required = false ) String street,
-			@RequestParam(name = "city", required = false) String city,
-			@RequestParam(name = "state", required = false) String state,
-			@RequestParam(name = "zip", required = false) String zip,
-			@RequestParam(name = "sponsorname", required = false) String name) {
+	public ResponseEntity createPlayer(@Valid   @RequestParam(name = "firstname") String firstname,
+										@RequestParam(name = "lastname") String lastname,
+										@RequestParam(name = "email") String email,
+										@RequestParam(name = "description", required = false) String description,
+										@RequestParam(name = "street", required = false ) String street,
+										@RequestParam(name = "city", required = false) String city,
+										@RequestParam(name = "state", required = false) String state,
+										@RequestParam(name = "zip", required = false) String zip,
+										@RequestParam(name = "sponsorname", required = false) String sponsor
+		) {
 		
-		Address address = new Address();
-		address.setStreet(street);
-		address.setCity(city);
-		address.setState(state);
-		address.setZip(zip);
 		
-		Player player = new Player();
-		player.setAddress(address);
-		player.setFirstname(firstname);
-		player.setLastname(lastname);
-		player.setEmail(email);
-		player.setDescription(description);
-		
-		return playerDAO.save(player, name);
+		try {
+			
+			firstname = firstname.trim();
+			lastname = lastname.trim();
+			email = email.trim();
+			
+			if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty()) {
+				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
+			}
+			if (description != null) {
+				description = description.trim();				
+			}
+			if (sponsor != null) {
+				sponsor = sponsor.trim();	
+				if (!playerDAO.sponsorExists(sponsor)) {
+					return ResponseEntity.status(HttpStatus.CONFLICT).body("Sponsor does not exist");
+				}
+			}
+			if (street != null) {
+				street = street.trim();				
+			}
+			if (city != null) {
+				city = city.trim();				
+			}
+			if (state != null) {
+				state = state.trim();				
+			}
+			if (zip != null) {
+				zip = zip.trim();
+			}
+			
+			if(playerDAO.emailExists(email)) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists");
+			}
+			
+			Address address = new Address();
+			address.setStreet(street);
+			address.setCity(city);
+			address.setState(state);
+			address.setZip(zip);
+			
+			Player player = new Player();
+			player.setAddress(address);
+			player.setFirstname(firstname);
+			player.setLastname(lastname);
+			player.setEmail(email);
+			player.setDescription(description);
+			
+			return ResponseEntity.status(HttpStatus.OK).body(playerDAO.save(player, sponsor));
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
 	}
 	
 	@GetMapping("/{id}")
-	public Player findPlayer(@PathVariable(name = "id") String id) {
-		return playerDAO.findPlayer(id);
+	public ResponseEntity findPlayer(@PathVariable(name = "id") String id) {
+		return ResponseEntity.status(HttpStatus.OK).body(playerDAO.findPlayer(id));
 	}
 }

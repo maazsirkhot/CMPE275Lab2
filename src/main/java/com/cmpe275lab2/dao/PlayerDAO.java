@@ -35,6 +35,14 @@ public class PlayerDAO {
 		return playerRepository.save(player);
 	}
 	
+	public boolean sponsorExists(String name) {
+		return sponsorRepository.existsByName(name);
+	}
+	
+	public boolean emailExists(String email) {
+		return playerRepository.existsByEmail(email);
+	}
+	
 	public Player findPlayer(String id) {
 		Long playerid = Long.parseLong(id);
 		return playerRepository.findById(playerid).orElse(null);
