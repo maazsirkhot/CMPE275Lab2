@@ -1,5 +1,6 @@
 package com.cmpe275lab2.model;
 
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -21,6 +22,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @EntityListeners(AuditingEntityListener.class)
 
 public class Player {
+	
+	public Player() {
+		this.address = new Address();
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
