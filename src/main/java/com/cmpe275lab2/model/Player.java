@@ -1,5 +1,8 @@
 package com.cmpe275lab2.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +14,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -52,6 +59,25 @@ public class Player {
 	@JsonIgnoreProperties("beneficiaries")
 	private Sponsor sponsor;
 
+	
+	// Many to One
+	@JsonIgnoreProperties({"opponents"})
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="opponents",
+		joinColumns={@JoinColumn(name="player1")},
+		inverseJoinColumns={@JoinColumn(name="player2")})
+	private List<Player> opponents = new ArrayList<Player>();
+
+	public void setOpponent(List<Player> opponents) {
+		this.opponents = opponents;
+	}
+	public List<Player> getOpponents() {
+		return opponents;
+	}
+	
+	
+	//ends here
+	
 	@Embedded 
 	private Address address;
 
