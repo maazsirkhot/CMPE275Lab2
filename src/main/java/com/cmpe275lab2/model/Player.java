@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -31,10 +32,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @EntityListeners(AuditingEntityListener.class)
 @XmlRootElement
 public class Player {
-	
-	public Player() {
-		this.address = new Address();
-	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,7 +61,6 @@ public class Player {
 	
 	// Many to One
 	@JsonIgnoreProperties({"opponents"})
-	@JsonBackReference
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinTable(name="opponents",
 		joinColumns={@JoinColumn(name="player1")},

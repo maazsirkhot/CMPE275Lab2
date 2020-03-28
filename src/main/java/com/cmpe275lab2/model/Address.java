@@ -20,16 +20,6 @@ public class Address {
 	@Column(name = "zipcode")
 	private String zip;
 	
-	/*
-	public Address(String street, String city, String state, String zipcode) {
-		super();
-		this.street = street;
-		this.city = city;
-		this.state = state;
-		this.zipcode = zipcode;
-	}
-	
-	*/
 	public String getStreet() {
 		return street;
 	}

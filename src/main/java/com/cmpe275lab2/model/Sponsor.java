@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -43,7 +44,6 @@ public class Sponsor {
 	private Address address;
 
 	@JsonIgnoreProperties(value = {"sponsor" , "opponents"})
-	@JsonManagedReference
 	@OneToMany(mappedBy="sponsor", fetch = FetchType.EAGER)
 	private List<Player> beneficiaries = new ArrayList<Player>();	
 

@@ -31,7 +31,7 @@ public class SponsorController {
 	@Autowired
 	SponsorDAO sponsorDAO;
 	
-	@PostMapping
+	@PostMapping(produces = { "application/json", "application/xml" })
 	public Sponsor createSponsor(@Valid @RequestParam(name = "name") String name,
 										@RequestParam(name = "description", required = false) String description,
 										@RequestParam(name = "street", required = false) String street,

@@ -28,63 +28,54 @@ public class OpponentController {
 	OpponentDAO opponentDAO;
 	
 	
-	@PostMapping("/{id1}/{id2}")
+	@PostMapping(value = "/{id1}/{id2}", produces = { "application/json", "application/xml" })
 	public ResponseEntity addOpponents(@Valid   
 			@PathVariable(name = "id1") String id1,
 			@PathVariable(name = "id2") String id2
-			
 		) 	{
 		
-		try
-		{
+		try {
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
-			if(p1==null || p2==null )
-			{
+			if(p1==null || p2==null) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
 			}
 			
-			if(id1.equals(id2))
-			{
+			if(id1.equals(id2)) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Both Opponents cannot be the same");	
 			}
 			opponentDAO.save(p1,p2);
 			return ResponseEntity.status(HttpStatus.OK).body("Success");	
 		
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
 	
 	
-	@DeleteMapping("/{id1}/{id2}")
+	@DeleteMapping(value = "/{id1}/{id2}", produces = { "application/json", "application/xml" })
 	public ResponseEntity removeOpponents(@Valid   
 			@PathVariable(name = "id1") String id1,
 			@PathVariable(name = "id2") String id2) {
 		
-		try
-		{
+		try{
 			
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
-			if(p1==null|| p2==null )
-			{
+			if(p1==null || p2==null) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
 			}
 			
-			if(id1.equals(id2))
-			{
-				
+			if(id1.equals(id2)){
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Both Opponents cannot be the same");	
+			}
+			if(!opponentDAO.areOpponents(id1, id2)) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The two players are not opponents");
 			}
 			opponentDAO.unsave(p1,p2);
 			return ResponseEntity.status(HttpStatus.OK).body("Success");	
 		
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}

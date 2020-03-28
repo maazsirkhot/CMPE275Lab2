@@ -69,6 +69,18 @@ public class OpponentDAO {
 		return playerRepository.existsById(playerid);
 	}
 	
+	public boolean areOpponents(String p1, String p2) {
+		Long playerid2 = Long.parseLong(p2);
+		Player playerObj = findPlayer(p1);
+		List<Player> opponentsOfPlayer = playerObj.getOpponents();
+		for (Player opponent: opponentsOfPlayer) {
+			if (opponent.getPlayerId() == playerid2) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void removeOpponents(String id) {
 		Long playerid = Long.parseLong(id);
 		Player playerToBeRemoved = findPlayer(id);

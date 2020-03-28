@@ -32,7 +32,7 @@ public class PlayerController {
 	@Autowired
 	OpponentDAO opponentDAO;
 	
-	@PostMapping
+	@PostMapping(produces = { "application/json", "application/xml" })
 	public ResponseEntity createPlayer(@Valid   
 										@RequestParam(name = "firstname") String firstname,
 										@RequestParam(name = "lastname") String lastname,
@@ -185,11 +185,11 @@ public class PlayerController {
 			address.setState(state);
 			address.setZip(zip);
 			
-			player.setAddress(address);
 			player.setFirstname(firstname);
 			player.setLastname(lastname);
 			player.setEmail(email);
 			player.setDescription(description);
+			player.setAddress(address);
 			
 			return ResponseEntity.status(HttpStatus.OK).body(playerDAO.save(player, sponsor));
 		} catch(Exception e) {
