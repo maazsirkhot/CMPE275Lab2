@@ -101,7 +101,7 @@ public class PlayerController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value="/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity findPlayer(@Valid @PathVariable(name = "id") String id) {
 		try {
 			id = id.trim();
@@ -115,7 +115,7 @@ public class PlayerController {
 		}
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value="/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity updatePlayer(@Valid 
 										@PathVariable(name = "id") String id,
 										@RequestParam(name = "firstname") String firstname,
@@ -191,7 +191,7 @@ public class PlayerController {
 	
 
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping(value="/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity deletePlayer(@Valid @PathVariable(name = "id") String id) {
 		try {
 			id = id.trim();

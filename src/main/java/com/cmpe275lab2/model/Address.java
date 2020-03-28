@@ -2,8 +2,10 @@ package com.cmpe275lab2.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Embeddable
+@XmlRootElement
 public class Address {
 	
 	@Column(name = "street")

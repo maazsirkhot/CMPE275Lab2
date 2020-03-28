@@ -50,7 +50,7 @@ public class SponsorController {
 		return sponsorDAO.save(sponsor);
 	}
 	
-	@GetMapping("/{name}")
+	@GetMapping(value="/{name}",produces = { "application/json", "application/xml" })
 	public ResponseEntity<Sponsor> getSponsor(@PathVariable(name = "name") String name) {
 		Sponsor retrieved = sponsorDAO.findSponsor(name);
 		if(retrieved == null) {
@@ -60,7 +60,7 @@ public class SponsorController {
 		}
 	}
 	
-	@PutMapping("/{name}")
+	@PutMapping(value="/{name}", produces = { "application/json", "application/xml" })
 	public ResponseEntity updateSponsor(@Valid
 			@PathVariable(name = "name") String name,
 			@RequestParam(name = "description", required = false) String description,
@@ -116,7 +116,7 @@ public class SponsorController {
 		}
 	}
 	
-	@DeleteMapping("/{name}")
+	@DeleteMapping(value="/{name}", produces = { "application/json", "application/xml" })
 	public ResponseEntity deleteSponsor(@Valid @PathVariable(name = "name") String name) {
 		try {
 			if(name == null) {

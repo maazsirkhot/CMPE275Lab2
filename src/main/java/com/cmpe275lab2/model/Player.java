@@ -19,6 +19,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
@@ -27,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="player")
 @EntityListeners(AuditingEntityListener.class)
-
+@XmlRootElement
 public class Player {
 	
 	public Player() {

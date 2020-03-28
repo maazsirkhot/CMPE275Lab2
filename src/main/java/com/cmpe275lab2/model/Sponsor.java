@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name="sponsor")
 @EntityListeners(AuditingEntityListener.class)
+@XmlRootElement
 public class Sponsor {
 
 	@Id
