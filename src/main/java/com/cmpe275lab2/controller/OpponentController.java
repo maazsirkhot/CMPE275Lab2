@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,10 +28,10 @@ public class OpponentController {
 	OpponentDAO opponentDAO;
 	
 	
-	@PostMapping
+	@PostMapping("/{id1}/{id2}")
 	public ResponseEntity addOpponents(@Valid   
-			@RequestParam(name = "id1") String id1,
-			@RequestParam(name = "id2") String id2
+			@PathVariable(name = "id1") String id1,
+			@PathVariable(name = "id2") String id2
 			
 ) 	{
 		
@@ -38,32 +40,30 @@ public class OpponentController {
 			
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
-		if(p1==null|| p2==null )
-		{
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
-		}
-		
-		if(id1.equals(id2))
-		{
+			if(p1==null|| p2==null )
+			{
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
+			}
 			
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Both Opponents cannot be the same");	
-		}
-		
-	return ResponseEntity.status(HttpStatus.OK).body(opponentDAO.save(p1,p2));	
+			if(id1.equals(id2))
+			{
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Both Opponents cannot be the same");	
+			}
+			opponentDAO.save(p1,p2);
+			return ResponseEntity.status(HttpStatus.OK).body("Success");	
 		
 		}
 		catch(Exception e)
 		{
-			System.out.println("Exception "+e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
-		return null;
 	}
 	
 	
-	@DeleteMapping
+	@DeleteMapping("/{id1}/{id2}")
 	public ResponseEntity removeOpponents(@Valid   
-			@RequestParam(name = "id1") String id1,
-			@RequestParam(name = "id2") String id2
+			@PathVariable(name = "id1") String id1,
+			@PathVariable(name = "id2") String id2
 			
 ) 	{
 		
@@ -72,25 +72,24 @@ public class OpponentController {
 			
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
-		if(p1==null|| p2==null )
-		{
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
-		}
-		
-		if(id1.equals(id2))
-		{
+			if(p1==null|| p2==null )
+			{
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
+			}
 			
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Both Opponents cannot be the same");	
-		}
-		
-	return ResponseEntity.status(HttpStatus.OK).body(opponentDAO.unsave(p1,p2));	
+			if(id1.equals(id2))
+			{
+				
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Both Opponents cannot be the same");	
+			}
+			opponentDAO.unsave(p1,p2);
+			return ResponseEntity.status(HttpStatus.OK).body("Success");	
 		
 		}
 		catch(Exception e)
 		{
-			System.out.println("Exception "+e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
-		return null;
 	}
 
 

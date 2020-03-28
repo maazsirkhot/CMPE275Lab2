@@ -62,7 +62,7 @@ public class Player {
 	
 	// Many to One
 	@JsonIgnoreProperties({"opponents"})
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinTable(name="opponents",
 		joinColumns={@JoinColumn(name="player1")},
 		inverseJoinColumns={@JoinColumn(name="player2")})

@@ -39,9 +39,8 @@ public class Sponsor {
 	@Embedded
 	private Address address;
 
-	@JsonIgnoreProperties("sponsor")
+	@JsonIgnoreProperties(value = {"sponsor" , "opponents"})
 	@OneToMany(mappedBy="sponsor", fetch = FetchType.EAGER)
-	
 	private List<Player> beneficiaries;	
 
 	
