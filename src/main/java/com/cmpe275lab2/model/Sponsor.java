@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -42,8 +43,9 @@ public class Sponsor {
 	private Address address;
 
 	@JsonIgnoreProperties(value = {"sponsor" , "opponents"})
+	@JsonManagedReference
 	@OneToMany(mappedBy="sponsor", fetch = FetchType.EAGER)
-	private List<Player> beneficiaries;	
+	private List<Player> beneficiaries = new ArrayList<Player>();	
 
 	
 	public List<Player> getBeneficiaries() {

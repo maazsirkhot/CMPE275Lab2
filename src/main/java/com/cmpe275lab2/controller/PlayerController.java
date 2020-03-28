@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cmpe275lab2.dao.OpponentDAO;
 import com.cmpe275lab2.dao.PlayerDAO;
 import com.cmpe275lab2.model.Address;
 import com.cmpe275lab2.model.Player;
 import com.cmpe275lab2.model.Sponsor;
-import com.cmpe275lab2.repository.SponsorRepository;
 import com.cmpe275lab2.dao.SponsorDAO;
 import com.cmpe275lab2.repository.PlayerRepository;
 
@@ -30,7 +30,7 @@ public class PlayerController {
 	PlayerDAO playerDAO;
 	
 	@Autowired
-	SponsorRepository sponsorRepository;
+	OpponentDAO opponentDAO;
 	
 	@PostMapping
 	public ResponseEntity createPlayer(@Valid   
@@ -45,8 +45,11 @@ public class PlayerController {
 										@RequestParam(name = "sponsorname", required = false) String sponsor
 		) {
 		
-		
 		try {
+			
+			if (firstname == null || lastname == null || email == null) {
+				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
+			}
 			
 			firstname = firstname.trim();
 			lastname = lastname.trim();
@@ -129,10 +132,15 @@ public class PlayerController {
 										@RequestParam(name = "sponsorname", required = false) String sponsor
 									) {
 		try {
+			
 			id = id.trim();
 			
 			if (!playerDAO.isValidPlayerId(id)) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+			}
+			
+			if (firstname == null || lastname == null || email == null) {
+				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
 			}
 			
 			firstname = firstname.trim();
@@ -189,16 +197,15 @@ public class PlayerController {
 		}
 	}
 	
-
-	
 	@DeleteMapping(value="/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity deletePlayer(@Valid @PathVariable(name = "id") String id) {
 		try {
 			id = id.trim();
 			Player player = playerDAO.findPlayer(id);
 			if (player == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid player ID");
 			}
+			opponentDAO.removeOpponents(id);
 			playerDAO.deletePlayer(id);
 			return ResponseEntity.status(HttpStatus.OK).body(player);
 		} catch (Exception e) {

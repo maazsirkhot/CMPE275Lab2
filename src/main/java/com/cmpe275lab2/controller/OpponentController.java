@@ -33,14 +33,13 @@ public class OpponentController {
 			@PathVariable(name = "id1") String id1,
 			@PathVariable(name = "id2") String id2
 			
-) 	{
+		) 	{
 		
 		try
 		{
-			
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
-			if(p1==null|| p2==null )
+			if(p1==null || p2==null )
 			{
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
 			}
@@ -63,9 +62,7 @@ public class OpponentController {
 	@DeleteMapping("/{id1}/{id2}")
 	public ResponseEntity removeOpponents(@Valid   
 			@PathVariable(name = "id1") String id1,
-			@PathVariable(name = "id2") String id2
-			
-) 	{
+			@PathVariable(name = "id2") String id2) {
 		
 		try
 		{

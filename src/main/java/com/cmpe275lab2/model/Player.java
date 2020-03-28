@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -64,6 +64,7 @@ public class Player {
 	
 	// Many to One
 	@JsonIgnoreProperties({"opponents"})
+	@JsonBackReference
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinTable(name="opponents",
 		joinColumns={@JoinColumn(name="player1")},

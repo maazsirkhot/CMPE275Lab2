@@ -12,5 +12,6 @@ import com.cmpe275lab2.model.Sponsor;
 public interface SponsorRepository extends JpaRepository<Sponsor, Long>{
 	
 	public boolean existsByName(String name);
+	
 	public List<Sponsor> findByName(String name); 
 }

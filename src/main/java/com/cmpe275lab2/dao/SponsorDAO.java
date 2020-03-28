@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cmpe275lab2.model.Sponsor;
+import com.cmpe275lab2.repository.PlayerRepository;
 import com.cmpe275lab2.repository.SponsorRepository;
 
 @Service
@@ -14,6 +15,9 @@ public class SponsorDAO {
 	
 	@Autowired
 	SponsorRepository sponsorRepository;
+	
+	@Autowired
+	PlayerRepository playerRepository;
 	
 	// Create a Sponsor
 	public Sponsor save(Sponsor sponsor) {
@@ -60,4 +64,13 @@ public class SponsorDAO {
 			return null;
 		}
 	}
+	
+	public boolean arePlayersBenefiting(String sponsor) {
+		Sponsor sponsorObj = findSponsor(sponsor);
+		if (sponsorObj.getBeneficiaries().size() > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 }
