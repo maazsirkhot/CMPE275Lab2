@@ -1,23 +1,22 @@
 package com.cmpe275lab2.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Embeddable
 @XmlRootElement
 public class Address {
 	
-	@Column(name = "street")
+//	@Column(name = "street")
 	private String street;
 	
-	@Column(name = "city")
+//	@Column(name = "city")
 	private String city;
 	
-	@Column(name = "state")
+//	@Column(name = "state")
 	private String state;
 	
-	@Column(name = "zipcode")
+//	@Column(name = "zipcode")
 	private String zip;
 	
 	public String getStreet() {

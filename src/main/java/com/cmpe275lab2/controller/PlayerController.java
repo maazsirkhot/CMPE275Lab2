@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +17,6 @@ import com.cmpe275lab2.dao.OpponentDAO;
 import com.cmpe275lab2.dao.PlayerDAO;
 import com.cmpe275lab2.model.Address;
 import com.cmpe275lab2.model.Player;
-import com.cmpe275lab2.model.Sponsor;
-import com.cmpe275lab2.dao.SponsorDAO;
-import com.cmpe275lab2.repository.PlayerRepository;
 
 @RestController
 @RequestMapping("/player")
@@ -84,18 +80,15 @@ public class PlayerController {
 				return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists");
 			}
 			
-			Address address = new Address();
-			address.setStreet(street);
-			address.setCity(city);
-			address.setState(state);
-			address.setZip(zip);
-			
 			Player player = new Player();
-			player.setAddress(address);
 			player.setFirstname(firstname);
 			player.setLastname(lastname);
 			player.setEmail(email);
 			player.setDescription(description);
+			player.getAddress().setStreet(street);
+			player.getAddress().setCity(city);
+			player.getAddress().setState(state);
+			player.getAddress().setZip(zip);
 			
 			return ResponseEntity.status(HttpStatus.OK).body(playerDAO.save(player, sponsor));
 			

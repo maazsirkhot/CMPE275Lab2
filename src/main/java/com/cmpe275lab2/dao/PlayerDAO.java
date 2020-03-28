@@ -1,12 +1,8 @@
 package com.cmpe275lab2.dao;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import java.io.Serializable;
 import com.cmpe275lab2.model.Player;
 import com.cmpe275lab2.model.Sponsor;
 import com.cmpe275lab2.repository.PlayerRepository;

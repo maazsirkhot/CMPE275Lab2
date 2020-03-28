@@ -1,30 +1,10 @@
 package com.cmpe275lab2.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.AttributeOverrides;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.*;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -32,6 +12,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @EntityListeners(AuditingEntityListener.class)
 @XmlRootElement
 public class Player {
+
+	public Player() {
+		this.address = new Address();
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -78,6 +62,14 @@ public class Player {
 	//ends here
 	
 	@Embedded 
+	@AttributeOverrides(
+			value = {
+					@AttributeOverride(name = "street", column = @Column(name = "street")),
+					@AttributeOverride(name = "city", column = @Column(name = "city")),
+					@AttributeOverride(name = "state", column = @Column(name = "state")),
+					@AttributeOverride(name = "zip", column = @Column(name = "zipcode"))
+			}
+	)
 	private Address address;
 
 	
