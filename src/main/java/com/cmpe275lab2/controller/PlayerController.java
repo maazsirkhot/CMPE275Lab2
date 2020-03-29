@@ -50,9 +50,9 @@ public class PlayerController {
 			firstname = firstname.trim();
 			lastname = lastname.trim();
 			email = email.trim();
-			
+						
 			if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty()) {
-				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
 			}
 			if (description != null) {
 				description = description.trim();				

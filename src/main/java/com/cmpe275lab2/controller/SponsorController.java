@@ -23,32 +23,59 @@ public class SponsorController {
 	SponsorDAO sponsorDAO;
 	
 	@PostMapping(produces = { "application/json", "application/xml" })
-	public Sponsor createSponsor(@Valid @RequestParam(name = "name") String name,
+	public ResponseEntity createSponsor(@Valid @RequestParam(name = "name") String name,
 										@RequestParam(name = "description", required = false) String description,
 										@RequestParam(name = "street", required = false) String street,
 										@RequestParam(name = "city", required = false) String city,
 										@RequestParam(name = "state", required = false) String state,
 										@RequestParam(name = "zip", required = false) String zip
 										) {
+		name = name.trim();
+		if (name.length() < 2) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Sponsor name cannot be less than two characters long");
+		}
+		
+		if (description != null) {
+			description = description.trim();
+		}
+		if (street != null) {
+			street = street.trim();
+		}
+		if (city != null) {
+			city = city.trim();
+		}
+		if (state != null) {
+			state = state.trim();
+		}
+		if (zip != null) {
+			zip = zip.trim();
+		}
+		
+		if (sponsorDAO.findSponsor(name) != null) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Sponsor name cannot be less than two characters long");
+		}
+		
+		Address address = new Address();
+		address.setStreet(street);
+		address.setCity(city);
+		address.setState(state);
+		address.setZip(zip);
 		
 		Sponsor sponsor = new Sponsor();
 		sponsor.setName(name);
 		sponsor.setDescription(description);
-		sponsor.getAddress().setStreet(street);
-		sponsor.getAddress().setCity(city);
-		sponsor.getAddress().setState(state);
-		sponsor.getAddress().setZip(zip);
+		sponsor.setAddress(address);
 		
-		return sponsorDAO.save(sponsor);
+		return ResponseEntity.status(HttpStatus.OK).body(sponsorDAO.save(sponsor));
 	}
 	
 	@GetMapping(value="/{name}",produces = { "application/json", "application/xml" })
-	public ResponseEntity<Sponsor> getSponsor(@PathVariable(name = "name") String name) {
+	public ResponseEntity getSponsor(@PathVariable(name = "name") String name) {
 		Sponsor retrieved = sponsorDAO.findSponsor(name);
 		if(retrieved == null) {
-			return new ResponseEntity<Sponsor>(HttpStatus.NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid sponsor name");
 		} else {
-			return new ResponseEntity<Sponsor>(retrieved, HttpStatus.OK);
+			return ResponseEntity.status(HttpStatus.OK).body(retrieved);
 		}
 	}
 	
@@ -82,6 +109,10 @@ public class SponsorController {
 			}
 			if (zip != null) {
 				zip = zip.trim();
+			}
+			
+			if (sponsorDAO.findSponsor(name) == null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sponsor name does not exist");
 			}
 			
 			Address address = new Address();
