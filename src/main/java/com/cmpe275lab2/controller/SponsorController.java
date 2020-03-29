@@ -52,7 +52,7 @@ public class SponsorController {
 		}
 		
 		if (sponsorDAO.findSponsor(name) != null) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Sponsor name cannot be less than two characters long");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Sponsor name already exists");
 		}
 		
 		Address address = new Address();
