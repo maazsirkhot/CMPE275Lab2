@@ -30,16 +30,14 @@ public class SponsorController {
 										@RequestParam(name = "state", required = false) String state,
 										@RequestParam(name = "zip", required = false) String zip
 										) {
-		Address address = new Address();
-		address.setStreet(street);
-		address.setCity(city);
-		address.setState(state);
-		address.setZip(zip);
 		
 		Sponsor sponsor = new Sponsor();
 		sponsor.setName(name);
 		sponsor.setDescription(description);
-		sponsor.setAddress(address);
+		sponsor.getAddress().setStreet(street);
+		sponsor.getAddress().setCity(city);
+		sponsor.getAddress().setState(state);
+		sponsor.getAddress().setZip(zip);
 		
 		return sponsorDAO.save(sponsor);
 	}
@@ -86,7 +84,6 @@ public class SponsorController {
 				zip = zip.trim();
 			}
 			
-//			List<Player> beneficiaries = new ArrayList<Player>();
 			Address address = new Address();
 			address.setStreet(street);
 			address.setCity(city);
@@ -97,8 +94,7 @@ public class SponsorController {
 			sponsor.setName(name);
 			sponsor.setDescription(description);
 			sponsor.setAddress(address);
-//			sponsor.setBeneficiaries(beneficiaries);
-			
+
 			Sponsor result = sponsorDAO.updateSponsor(sponsor);
 			
 			if(result == null) {

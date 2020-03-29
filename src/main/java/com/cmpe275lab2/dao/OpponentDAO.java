@@ -89,7 +89,7 @@ public class OpponentDAO {
 			playerRepository.save(opponent);
 		}
 		
-		opponentsOfPlayer = new ArrayList<Player>();
+		playerToBeRemoved.getOpponents().clear();
 		playerRepository.save(playerToBeRemoved);
 				
 	}

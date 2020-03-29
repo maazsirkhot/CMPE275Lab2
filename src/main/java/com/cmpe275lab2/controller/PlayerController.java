@@ -169,20 +169,20 @@ public class PlayerController {
 				return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists");
 			}
 			
-			Player player = playerDAO.findPlayer(id);
-
-			
 			Address address = new Address();
 			address.setStreet(street);
 			address.setCity(city);
 			address.setState(state);
 			address.setZip(zip);
 			
+			Player player = playerDAO.findPlayer(id);
 			player.setFirstname(firstname);
 			player.setLastname(lastname);
 			player.setEmail(email);
-			player.setDescription(description);
 			player.setAddress(address);
+			player.setDescription(description);
+			
+
 			
 			return ResponseEntity.status(HttpStatus.OK).body(playerDAO.save(player, sponsor));
 		} catch(Exception e) {
@@ -195,12 +195,13 @@ public class PlayerController {
 		try {
 			id = id.trim();
 			Player player = playerDAO.findPlayer(id);
+			Player playerObj = new Player(player);
 			if (player == null) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid player ID");
 			}
 			opponentDAO.removeOpponents(id);
 			playerDAO.deletePlayer(id);
-			return ResponseEntity.status(HttpStatus.OK).body(player);
+			return ResponseEntity.status(HttpStatus.OK).body(playerObj);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}

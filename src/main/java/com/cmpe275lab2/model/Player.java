@@ -17,6 +17,18 @@ public class Player {
 		this.address = new Address();
 	}
 	
+	public Player(Player player) {
+		this.firstname = player.getFirstname();
+		this.lastname = player.getLastname();
+		this.email = player.getEmail();
+		this.description = player.getDescription();
+		this.address = player.getAddress();
+		this.sponsor = player.getSponsor();
+		for (Player opponent: player.getOpponents()) {
+			this.opponents.add(opponent);
+		}
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "player_id")
