@@ -40,8 +40,6 @@ public class SponsorDAO {
 		Sponsor sponsorObj = null;
 		if(sponsorList.size() > 0) {
 			sponsorObj = sponsorList.get(0);
-			
-			sponsorObj.setName(sponsor.getName());
 			sponsorObj.setDescription(sponsor.getDescription());
 			sponsorObj.setAddress(sponsor.getAddress());
 			

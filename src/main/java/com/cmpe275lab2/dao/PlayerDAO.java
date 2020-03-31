@@ -53,7 +53,7 @@ public class PlayerDAO {
 		Long playerid = Long.parseLong(id);
 		List <Player> player = playerRepository.findByEmail(email);
 		for (Player p : player) {
-			if (p.getPlayerId() != playerid) {
+			if (p.getId() != playerid) {
 				return true;
 			}
 		}

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,7 +70,7 @@ public class SponsorController {
 		return ResponseEntity.status(HttpStatus.OK).body(sponsorDAO.save(sponsor));
 	}
 	
-	@GetMapping(value="/{name}",produces = { "application/json", "application/xml" })
+	@GetMapping(value="/{name}", produces = { "application/json", "application/xml" })
 	public ResponseEntity getSponsor(@PathVariable(name = "name") String name) {
 		Sponsor retrieved = sponsorDAO.findSponsor(name);
 		if(retrieved == null) {
@@ -79,7 +80,7 @@ public class SponsorController {
 		}
 	}
 	
-	@PostMapping(value="/{name}", produces = { "application/json", "application/xml" })
+	@PutMapping(value="/{name}", produces = { "application/json", "application/xml" })
 	public ResponseEntity updateSponsor(@Valid
 			@PathVariable(name = "name") String name,
 			@RequestParam(name = "description", required = false) String description,
@@ -122,7 +123,6 @@ public class SponsorController {
 			address.setZip(zip);
 			
 			Sponsor sponsor = new Sponsor();
-			sponsor.setName(name);
 			sponsor.setDescription(description);
 			sponsor.setAddress(address);
 

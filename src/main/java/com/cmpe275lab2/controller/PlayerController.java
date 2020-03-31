@@ -129,7 +129,7 @@ public class PlayerController {
 			id = id.trim();
 			
 			if (!playerDAO.isValidPlayerId(id)) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid player ID");
 			}
 			
 			if (firstname == null || lastname == null || email == null) {
@@ -195,10 +195,10 @@ public class PlayerController {
 		try {
 			id = id.trim();
 			Player player = playerDAO.findPlayer(id);
-			Player playerObj = new Player(player);
 			if (player == null) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid player ID");
 			}
+			Player playerObj = new Player(player);
 			opponentDAO.removeOpponents(id);
 			playerDAO.deletePlayer(id);
 			return ResponseEntity.status(HttpStatus.OK).body(playerObj);

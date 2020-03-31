@@ -32,7 +32,7 @@ public class Player {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "player_id")
-	private Long playerId;
+	private Long id;
 	
 	@NotBlank
 	@Column(name = "firstname")
@@ -56,7 +56,7 @@ public class Player {
 
 	
 	// Many to One
-	@JsonIgnoreProperties({"opponents"})
+	@JsonIgnoreProperties(value = {"sponsor" , "opponents"})
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinTable(name="opponents",
 		joinColumns={@JoinColumn(name="player1")},
@@ -85,11 +85,11 @@ public class Player {
 	private Address address;
 
 	
-	public Long getPlayerId() {
-		return playerId;
+	public Long getId() {
+		return id;
 	}
-	public void setPlayerId(Long playerId) {
-		this.playerId = playerId;
+	public void setId(Long playerId) {
+		this.id = playerId;
 	}
 	public String getFirstname() {
 		return firstname;

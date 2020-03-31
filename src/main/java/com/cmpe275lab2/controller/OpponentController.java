@@ -33,14 +33,14 @@ public class OpponentController {
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
 			if(p1==null || p2==null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Atleast one of the player ID is Invalid");
 			}
 			
 			if(id1.equals(id2)) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Both Opponents cannot be the same");	
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Player cannot be opponent of themself");	
 			}
 			opponentDAO.save(p1,p2);
-			return ResponseEntity.status(HttpStatus.OK).body("Success");	
+			return ResponseEntity.status(HttpStatus.OK).body("Opponent added");	
 		
 		} catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
@@ -58,7 +58,7 @@ public class OpponentController {
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
 			if(p1==null || p2==null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("One of the player ID is Invalid");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Atleast one of the player ID is Invalid");
 			}
 			
 			if(id1.equals(id2)){
@@ -68,7 +68,7 @@ public class OpponentController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The two players are not opponents");
 			}
 			opponentDAO.unsave(p1,p2);
-			return ResponseEntity.status(HttpStatus.OK).body("Success");	
+			return ResponseEntity.status(HttpStatus.OK).body("Opponent deleted");	
 		
 		} catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

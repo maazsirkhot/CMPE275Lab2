@@ -67,7 +67,7 @@ public class OpponentDAO {
 		Player playerObj = findPlayer(p1);
 		List<Player> opponentsOfPlayer = playerObj.getOpponents();
 		for (Player opponent: opponentsOfPlayer) {
-			if (opponent.getPlayerId() == playerid2) {
+			if (opponent.getId() == playerid2) {
 				return true;
 			}
 		}
@@ -82,7 +82,7 @@ public class OpponentDAO {
 		
 		List<Player> tempOpponents;
 		for (Player opponent: opponentsOfPlayer) {
-			System.out.println(opponent.getPlayerId());
+			System.out.println(opponent.getId());
 			tempOpponents = opponent.getOpponents();
 			tempOpponents.remove(playerToBeRemoved);
 			opponent.setOpponent(tempOpponents);
