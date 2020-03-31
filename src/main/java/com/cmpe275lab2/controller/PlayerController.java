@@ -38,7 +38,7 @@ public class PlayerController {
 										@RequestParam(name = "city", required = false) String city,
 										@RequestParam(name = "state", required = false) String state,
 										@RequestParam(name = "zip", required = false) String zip,
-										@RequestParam(name = "sponsorname", required = false) String sponsor
+										@RequestParam(name = "sponsor", required = false) String sponsor
 		) {
 		
 		try {
@@ -122,7 +122,7 @@ public class PlayerController {
 										@RequestParam(name = "city", required = false) String city,
 										@RequestParam(name = "state", required = false) String state,
 										@RequestParam(name = "zip", required = false) String zip,
-										@RequestParam(name = "sponsorname", required = false) String sponsor
+										@RequestParam(name = "sponsor", required = false) String sponsor
 									) {
 		try {
 			
