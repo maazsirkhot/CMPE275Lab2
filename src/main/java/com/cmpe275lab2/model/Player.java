@@ -18,6 +18,7 @@ public class Player {
 	}
 	
 	public Player(Player player) {
+		this.id = player.getId();
 		this.firstname = player.getFirstname();
 		this.lastname = player.getLastname();
 		this.email = player.getEmail();
