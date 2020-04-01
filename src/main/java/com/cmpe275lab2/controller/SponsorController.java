@@ -126,10 +126,10 @@ public class SponsorController {
 			sponsor.setDescription(description);
 			sponsor.setAddress(address);
 
-			Sponsor result = sponsorDAO.updateSponsor(sponsor);
+			Sponsor result = sponsorDAO.updateSponsor(sponsor, name);
 			
 			if(result == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Sponsor name");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid Sponsor name");
 			} else {
 				return ResponseEntity.status(HttpStatus.OK).body(result);
 			}

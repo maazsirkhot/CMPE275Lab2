@@ -35,8 +35,8 @@ public class SponsorDAO {
 	}
 	
 	// Update a Sponsor
-	public Sponsor updateSponsor(Sponsor sponsor) {
-		List<Sponsor> sponsorList = sponsorRepository.findByName(sponsor.getName());
+	public Sponsor updateSponsor(Sponsor sponsor, String name) {
+		List<Sponsor> sponsorList = sponsorRepository.findByName(name);
 		Sponsor sponsorObj = null;
 		if(sponsorList.size() > 0) {
 			sponsorObj = sponsorList.get(0);
