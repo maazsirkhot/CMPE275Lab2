@@ -103,11 +103,11 @@ public class PlayerController {
 			id = id.trim();
 			Player player = playerDAO.findPlayer(id);
 			if (player == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid player ID");
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(player);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
 	
