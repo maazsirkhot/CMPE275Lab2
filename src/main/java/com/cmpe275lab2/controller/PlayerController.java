@@ -100,6 +100,11 @@ public class PlayerController {
 	@GetMapping(value="/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity findPlayer(@Valid @PathVariable(name = "id") String id) {
 		try {
+			try{
+	            Long l = Long.parseLong(id);
+	        } catch (NumberFormatException e) {
+	        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+	        }
 			id = id.trim();
 			Player player = playerDAO.findPlayer(id);
 			if (player == null) {
@@ -107,7 +112,7 @@ public class PlayerController {
 			}
 			return ResponseEntity.status(HttpStatus.OK).body(player);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
 	
@@ -193,6 +198,11 @@ public class PlayerController {
 	@DeleteMapping(value="/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity deletePlayer(@Valid @PathVariable(name = "id") String id) {
 		try {
+			try{
+	            Long l = Long.parseLong(id);
+	        } catch (NumberFormatException e) {
+	        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+	        }
 			id = id.trim();
 			Player player = playerDAO.findPlayer(id);
 			if (player == null) {
