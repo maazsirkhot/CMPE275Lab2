@@ -130,6 +130,11 @@ public class PlayerController {
 										@RequestParam(name = "sponsor", required = false) String sponsor
 									) {
 		try {
+			try{
+	            Long l = Long.parseLong(id);
+	        } catch (NumberFormatException e) {
+	        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+	        }
 			
 			id = id.trim();
 			

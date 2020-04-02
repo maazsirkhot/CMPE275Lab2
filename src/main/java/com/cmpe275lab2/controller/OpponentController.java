@@ -30,6 +30,12 @@ public class OpponentController {
 		) 	{
 		
 		try {
+			try{
+	            Long l1 = Long.parseLong(id1);
+	            Long l2 = Long.parseLong(id2);
+	        } catch (NumberFormatException e) {
+	        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+	        }
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
 			if(p1==null || p2==null) {
@@ -54,6 +60,12 @@ public class OpponentController {
 			@PathVariable(name = "id2") String id2) {
 		
 		try{
+			try{
+	            Long l1 = Long.parseLong(id1);
+	            Long l2 = Long.parseLong(id2);
+	        } catch (NumberFormatException e) {
+	        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid player ID");
+	        }
 			
 			Player p1=opponentDAO.findPlayer(id1);
 			Player p2=opponentDAO.findPlayer(id2);
