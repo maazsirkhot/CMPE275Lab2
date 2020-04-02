@@ -44,7 +44,7 @@ public class PlayerController {
 		try {
 			
 			if (firstname == null || lastname == null || email == null) {
-				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
 			}
 			
 			firstname = firstname.trim();
@@ -143,7 +143,7 @@ public class PlayerController {
 			}
 			
 			if (firstname == null || lastname == null || email == null) {
-				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
 			}
 			
 			firstname = firstname.trim();
@@ -151,7 +151,7 @@ public class PlayerController {
 			email = email.trim();
 			
 			if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty()) {
-				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required params are missing");
 			}
 			if (description != null) {
 				description = description.trim();				
